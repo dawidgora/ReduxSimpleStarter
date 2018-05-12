@@ -5,11 +5,12 @@ import { createStore, applyMiddleware } from 'redux';
 
 import App from './components/App';
 import reducers from './reducers';
+import thunk from "redux-thunk";
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <App />
   </Provider>
-  , document.querySelector('.container'));
+  , document.querySelector('.app'));
