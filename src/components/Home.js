@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
+import Search from "./Search";
+import VideoList from "./VideoList";
 
 class Home extends Component {
     constructor(props) {
@@ -12,26 +14,26 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        if (!this.props.auth.authObject) {
-            this.setState({redirect: '/login'});
-        }
+        // if (!this.props.auth.authObject) {
+        //     this.setState({redirect: '/login'});
+        // }
     }
 
     render() {
         if (this.state.redirect) {
             return <Redirect to={this.state.redirect}/>
         }
-        if (!this.props.auth.authObject) {
-            return <div className="container">loading...</div>
-        }
+        // if (!this.props.auth.authObject) {
+        //     return <div className="container">loading...</div>
+        // }
         return (
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-12 col-md-8">
-                        asdasd
+                    <div className="col-12">
+                        <Search/>
                     </div>
-                    <div className="col-12 col-md-4">
-                        asdas
+                    <div className="col-12">
+                        <VideoList videos={this.props.search.videos} nextPageToken={this.props.search.nextPageToken}/>
                     </div>
                 </div>
             </div>
@@ -40,9 +42,9 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const {auth} = state;
+    const {auth, search} = state;
 
-    return {auth};
+    return {auth, search};
 };
 
 export default connect(mapStateToProps)(Home);
