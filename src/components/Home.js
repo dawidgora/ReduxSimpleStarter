@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {Redirect} from "react-router-dom";
+import {Link, Redirect, Route} from "react-router-dom";
 import Search from "./Search";
-import VideoList from "./VideoList";
+import {logoutUser} from "../actions/AuthAction";
+import Favorites from "./Favorites";
+import {fetchFavorites} from "../actions/FavoritesAction";
 
 class Home extends Component {
     constructor(props) {
@@ -14,27 +16,33 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        // if (!this.props.auth.authObject) {
-        //     this.setState({redirect: '/login'});
-        // }
+        if (!this.props.auth.authObject) {
+            this.setState({redirect: '/login'});
+            return;
+        }
+
+        this.props.fetchFavorites(this.props.auth.authObject.user.uid);
     }
 
     render() {
         if (this.state.redirect) {
             return <Redirect to={this.state.redirect}/>
         }
-        // if (!this.props.auth.authObject) {
-        //     return <div className="container">loading...</div>
-        // }
+        if (!this.props.auth.authObject) {
+            return <div className="container">loading...</div>
+        }
         return (
             <div className="container-fluid">
+                <div className="menu">
+                    <Link to="/search">Search</Link>
+                    <Link to="/favorites">Favorites</Link>
+                </div>
                 <div className="row">
-                    <div className="col-12">
-                        <Search/>
-                    </div>
-                    <div className="col-12">
-                        <VideoList videos={this.props.search.videos} nextPageToken={this.props.search.nextPageToken}/>
-                    </div>
+                    <Route exact path={`/search`} component={Search}/>
+                    <Route exact path={`/favorites`} component={Favorites}/>
+                    <Route exact path="/" render={() => (
+                        <h3>Hello</h3>
+                    )}/>
                 </div>
             </div>
         );
@@ -42,9 +50,9 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const {auth, search} = state;
+    const {auth} = state;
 
-    return {auth, search};
+    return {auth};
 };
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps, {logoutUser, fetchFavorites})(Home);

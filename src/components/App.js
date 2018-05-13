@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {
     BrowserRouter as Router,
-    Route,
-    Link
+    Route, Switch
 } from 'react-router-dom'
 import Home from "./Home";
 import Login from "./Login";
@@ -13,9 +12,11 @@ export default class App extends Component {
         return (
             <Router>
                 <div className="container-fluid">
-                    <Route exact path="/" component={Home}/>
-                    <Route path="/login" component={Login}/>
-                    <Route path="/register" component={Register}/>
+                    <Switch>
+                        <Route exact path="/login" component={Login}/>
+                        <Route exact path="/register" component={Register}/>
+                        <Route path="/" component={Home}/>
+                    </Switch>
                 </div>
             </Router>
         );

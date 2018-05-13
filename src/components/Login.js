@@ -9,8 +9,8 @@ class Login extends Component {
 
         this.state = {
             redirect: null,
-            email: '',
-            password: '',
+            email: 'dawidgora@icloud.com',
+            password: 'qwerty123',
             error: ''
         };
 
