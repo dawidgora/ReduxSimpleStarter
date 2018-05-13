@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {addToFavorites, removeFromFavorites} from "../actions/FavoritesAction";
 import {connect} from "react-redux";
+import {selectVideo} from "../actions/VideoAction";
 
 class Video extends Component {
     constructor(props) {
@@ -9,6 +10,7 @@ class Video extends Component {
         this.videoData = this.props.videoData;
 
         this.handleFavorites = this.handleFavorites.bind(this);
+        this.selectVideo = this.selectVideo.bind(this);
     }
 
     renderFavoritesButton() {
@@ -37,10 +39,15 @@ class Video extends Component {
         }
     }
 
+    selectVideo() {
+        this.props.selectVideo(this.props.videoData);
+    }
+
     render() {
         return (
             <div className="video">
-                {this.videoData.id}
+                <div>{this.videoData.title}</div>
+                <div onClick={this.selectVideo}>Play</div>
                 {this.renderFavoritesButton()}
             </div>
         );
@@ -53,4 +60,4 @@ const mapStateToProps = (state) => {
     return {auth, favorites};
 };
 
-export default connect(mapStateToProps, {addToFavorites, removeFromFavorites})(Video);
+export default connect(mapStateToProps, {addToFavorites, removeFromFavorites, selectVideo})(Video);

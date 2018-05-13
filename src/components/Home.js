@@ -5,13 +5,15 @@ import Search from "./Search";
 import {logoutUser} from "../actions/AuthAction";
 import Favorites from "./Favorites";
 import {fetchFavorites} from "../actions/FavoritesAction";
+import YouTubePlayer from "./YouTubePlayer";
 
 class Home extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            redirect: null
+            redirect: null,
+            videoId: null
         };
     }
 
@@ -38,11 +40,16 @@ class Home extends Component {
                     <Link to="/favorites">Favorites</Link>
                 </div>
                 <div className="row">
-                    <Route exact path={`/search`} component={Search}/>
-                    <Route exact path={`/favorites`} component={Favorites}/>
-                    <Route exact path="/" render={() => (
-                        <h3>Hello</h3>
-                    )}/>
+                    <div className="col-12 col-md-4">
+                        <Route exact path={`/search`} component={Search}/>
+                        <Route exact path={`/favorites`} component={Favorites}/>
+                        <Route exact path="/" render={() => (
+                            <Redirect to="/favorites"/>
+                        )}/>
+                    </div>
+                    <div className="col-12 col-md-8">
+                        <YouTubePlayer currentVideo={this.props.currentVideo}/>
+                    </div>
                 </div>
             </div>
         );
@@ -50,9 +57,9 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const {auth} = state;
+    const {auth, currentVideo} = state;
 
-    return {auth};
+    return {auth, currentVideo};
 };
 
 export default connect(mapStateToProps, {logoutUser, fetchFavorites})(Home);
