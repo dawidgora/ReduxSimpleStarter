@@ -17,11 +17,12 @@ class Search extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        this.props.searchVideos({
-            query: this.state.query
-        }, null, response => {
+        this.props.searchVideos(
+            this.state.query,
+            null,
+            response => {
 
-        });
+            });
     }
 
     render() {
