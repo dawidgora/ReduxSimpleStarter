@@ -36,7 +36,7 @@ class Search extends Component {
                                onChange={e => this.setState({query: e.target.value})}
                         />
                         <div className="input-group-append">
-                            <button className="btn btn-outline-secondary" type="button" onClick={this.handleSubmit}>Search</button>
+                            <button className="btn btn-danger" type="button" onClick={this.handleSubmit}>Search</button>
                         </div>
                     </div>
                 </div>

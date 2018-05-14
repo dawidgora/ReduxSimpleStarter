@@ -13,8 +13,28 @@ class Home extends Component {
 
         this.state = {
             redirect: null,
-            videoId: null
+            videoId: null,
+            isModalOpen: false,
+            isInnerModalOpen: false
         };
+
+        // bind functions
+        this.closeModal = this.closeModal.bind(this);
+        this.openModal = this.openModal.bind(this);
+    }
+
+    // close modal (set isModalOpen, true)
+    closeModal() {
+        this.setState({
+            isModalOpen: false
+        })
+    }
+
+    // open modal (set isModalOpen, false)
+    openModal() {
+        this.setState({
+            isModalOpen: true
+        })
     }
 
     componentDidMount() {
@@ -34,24 +54,28 @@ class Home extends Component {
             return <div className="container">loading...</div>
         }
         return (
-            <div className="container-fluid">
-                <div className="menu">
-                    <Link to="/search">Search</Link>
-                    <Link to="/favorites">Favorites</Link>
-                </div>
-                <div className="row">
-                    <div className="col-12 col-md-4">
-                        <Route exact path={`/search`} component={Search}/>
-                        <Route exact path={`/favorites`} component={Favorites}/>
-                        <Route exact path="/" render={() => (
-                            <Redirect to="/favorites"/>
-                        )}/>
+                <div>
+                    <div className="navbar navbar-default menuBar">
+                        <div class="menuBarItems">
+                            <Link className="btn btn-danger" to="/search">Search</Link>
+                            <Link className="btn btn-danger" to="/favorites">Favorites</Link>
+                        </div>
                     </div>
-                    <div className="col-12 col-md-8">
-                        <YouTubePlayer currentVideo={this.props.currentVideo}/>
+                    <div className="container-fluid mainContent">
+                        <div className="row">
+                            <div className="col-md-6">
+                                <Route exact path={`/search`} component={Search}/>
+                                <Route exact path={`/favorites`} component={Favorites}/>
+                                <Route exact path="/" render={() => (
+                                    <Redirect to="/favorites"/>
+                                )}/>
+                            </div>
+                            <div className="col-md-6">
+                                <YouTubePlayer currentVideo={this.props.currentVideo}/>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
         );
     }
 }

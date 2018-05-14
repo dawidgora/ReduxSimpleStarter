@@ -28,7 +28,9 @@ class VideoList extends Component {
     renderNextPageButton() {
         if (this.props.videos.length && this.props.nextPageToken) {
             return (
-                <div className="btn btn-default" onClick={this.loadMore}>Load more</div>
+                <div className="col-md-4 col-sm-6 col-xs-12">
+                    <div className="col-12 btn btn-danger loadMore" onClick={this.loadMore}>Load more</div>
+                </div>
             );
         }
     }
@@ -36,7 +38,7 @@ class VideoList extends Component {
     render() {
         return (
             <div className="video-list-wrapper">
-                <div className="video-list">
+                <div className="video-list row">
                     {this.renderItems()}
                 </div>
                 {this.renderNextPageButton()}

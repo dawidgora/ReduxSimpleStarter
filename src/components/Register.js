@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {Link, Redirect} from "react-router-dom";
 import {registerUser} from "../actions/AuthAction";
+import logo from "../../img/yt-drawn-logo.png";
 
 class Register extends Component {
     constructor(props) {
@@ -38,28 +39,36 @@ class Register extends Component {
         }
 
         return (
-            <div className="container">
-                <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        <label>Email address</label>
-                        <input type="email"
-                               className="form-control"
-                               placeholder="Enter email"
-                               value={this.state.email}
-                               onChange={e => this.setState({email: e.target.value})}
-                        />
+            <div className="container loginWrapper">
+                <div className="col-xs-12 col-sm-12 col-md-6 loginWrapperInner">
+                    <div className="logoWrapper">
+                        <img className="logo" src={logo} />
+                        <h3 className="labelText">YouTube Favourites</h3>
                     </div>
-                    <div className="form-group">
-                        <label>Password</label>
-                        <input type="password"
-                               className="form-control"
-                               placeholder="Password"
-                               value={this.state.password}
-                               onChange={e => this.setState({password: e.target.value})}
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-primary">Register</button>
-                </form>
+                    <form onSubmit={this.handleSubmit}>
+                        <div className="form-group">
+                            <label className="labelText">Email address</label>
+                            <input type="email"
+                                   className="form-control"
+                                   placeholder="Enter email"
+                                   value={this.state.email}
+                                   onChange={e => this.setState({email: e.target.value})}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label className="labelText">Password</label>
+                            <input type="password"
+                                   className="form-control"
+                                   placeholder="Password"
+                                   value={this.state.password}
+                                   onChange={e => this.setState({password: e.target.value})}
+                            />
+                        </div>
+                        <div className="loginButtons">
+                            <button type="submit" className="btn btn-danger">Register</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         );
     }
